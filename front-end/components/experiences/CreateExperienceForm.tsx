@@ -2,6 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ExperienceService from "@services/ExperienceService";
+import { ExperienceInput } from "@types";
 
 type Props = {
   onSuccess?: () => void;
@@ -26,7 +27,7 @@ const CreateExperienceForm = ({ onSuccess, onCancel }: Props) => {
     if (!location.trim()) return setError("Location is required.");
     if (!date) return setError("Date is required.");
 
-    const exp = {
+    const exp: ExperienceInput = {
       name,
       description,
       location,

@@ -8,6 +8,13 @@ export type Holiday = {
   attendees: User[];
 };
 
+export type ExperienceInput = {
+  name: string;
+  description: string;
+  location: string;
+  date: string;
+};
+
 export type Experience = {
   id?: number;
   name: string;
