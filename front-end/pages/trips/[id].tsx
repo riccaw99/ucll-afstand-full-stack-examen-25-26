@@ -19,27 +19,22 @@ const TripDetail: React.FC = () => {
     setError("");
     setLoading(true);
 
-    const response = await TripService.getTripById(tripId);
+    const res = await TripService.getTripById(tripId);
 
-    if (!response.ok) {
-      setError(
-        response.status === 401
-          ? "You are not authorized to view this page. Please login first."
-          : response.statusText
-      );
+    if (!res.ok) {
       setTrip(null);
-    } else {
-      const data: Holiday = await response.json();
-      setTrip(data);
+      setError(res.statusText || "Failed to load trip.");
+      setLoading(false);
+      return;
     }
 
+    const data: Holiday = await res.json();
+    setTrip(data);
     setLoading(false);
   };
 
   useEffect(() => {
-    if (typeof id === "string") {
-      getTrip(id);
-    }
+    if (typeof id === "string") getTrip(id);
   }, [id]);
 
   if (loading) {

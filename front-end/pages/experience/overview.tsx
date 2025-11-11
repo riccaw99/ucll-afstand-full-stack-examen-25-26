@@ -16,7 +16,7 @@ const Experiences: React.FC = () => {
 
   useEffect(() => {
     const loggedInUserString = sessionStorage.getItem("loggedInUser");
-    if (loggedInUserString) {
+    if (loggedInUserString !== null) {
       setLoggedInUser(JSON.parse(loggedInUserString));
     }
   }, []);
@@ -24,16 +24,19 @@ const Experiences: React.FC = () => {
   const getExperiences = async () => {
     setError("");
     const response = await ExperienceService.getAllExperiences();
+
     if (!response.ok) {
-      setError(
-        response.status === 401
-          ? "You are not authorized to view this page. Please login first."
-          : response.statusText
-      );
-      return;
+      if (response.status === 401) {
+        setError(
+          "You are not authorized to view this page. Please login first."
+        );
+      } else {
+        setError(response.statusText);
+      }
+    } else {
+      const data: Experience[] = await response.json();
+      setExperiences(data);
     }
-    const experiencesData: Experience[] = await response.json();
-    setExperiences(experiencesData);
   };
 
   const getMyExperiences = async () => {
@@ -42,16 +45,19 @@ const Experiences: React.FC = () => {
     const response = await ExperienceService.getExperiencesByOrganiser(
       loggedInUser.id
     );
+
     if (!response.ok) {
-      setError(
-        response.status === 401
-          ? "You are not authorized to view this page. Please login first."
-          : response.statusText
-      );
-      return;
+      if (response.status === 401) {
+        setError(
+          "You are not authorized to view this page. Please login first."
+        );
+      } else {
+        setError(response.statusText);
+      }
+    } else {
+      const data: Experience[] = await response.json();
+      setExperiences(data);
     }
-    const experiencesData: Experience[] = await response.json();
-    setExperiences(experiencesData);
   };
 
   useEffect(() => {

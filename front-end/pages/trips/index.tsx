@@ -15,19 +15,14 @@ const Trips: React.FC = () => {
     setError("");
     setLoading(true);
 
-    const response = await TripService.getAllTrips();
+    const res = await TripService.getAllTrips();
 
-    if (!response.ok) {
-      if (response.status === 401) {
-        setError(
-          "You are not authorized to view this page. Please login first."
-        );
-      } else {
-        setError(response.statusText);
-      }
+    if (!res.ok) {
+      setTrips([]);
+      setError(res.statusText || "Failed to load trips.");
     } else {
-      const trips = await response.json();
-      setTrips(trips);
+      const data: Holiday[] = await res.json();
+      setTrips(data);
     }
 
     setLoading(false);
