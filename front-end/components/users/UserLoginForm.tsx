@@ -39,8 +39,8 @@ const UserLoginForm: React.FC = () => {
 
     if (!validate()) return;
 
-    const payload = { email, password };
-    const res = await UserService.loginUser(payload);
+    const user = { email, password };
+    const res = await UserService.loginUser(user);
     const data = await res.json();
 
     if (res.status === 200) {
