@@ -30,7 +30,7 @@ const UserLoginForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setStatusMessages([]);
     let isValid = true;

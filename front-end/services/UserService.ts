@@ -1,6 +1,6 @@
-import { User } from "@types";
+import { credentials } from "@types";
 
-const loginUser = (credentials: { email: string; password: string }) => {
+const loginUser = (credentials: credentials) => {
   return fetch(process.env.NEXT_PUBLIC_API_URL + "/users/login", {
     method: "POST",
     headers: {

@@ -1,4 +1,4 @@
-import { Experience } from "@types";
+import { ExperienceInput } from "@types";
 
 const getToken = (): string => {
   const loggedInUserString = sessionStorage.getItem("loggedInUser");
@@ -28,12 +28,7 @@ const getExperiencesByOrganiser = (organiserId: number) => {
   );
 };
 
-const createExperience = (experience: {
-  name: string;
-  description: string;
-  date: string;
-  location: string;
-}) => {
+const createExperience = (experience: ExperienceInput) => {
   return fetch(process.env.NEXT_PUBLIC_API_URL + "/events", {
     method: "POST",
     headers: {
