@@ -1,11 +1,11 @@
-import { set } from 'date-fns';
+import { addDays, set } from 'date-fns';
 import { Event } from '../../model/event';
 import { User } from '../../model/user';
 import eventDb from '../../repository/event.db';
 import userDb from '../../repository/user.db';
 import eventService from '../../service/event.service';
 
-const date = set(new Date('2025-11-10T00:00:00Z'), { hours: 10 });
+const date = set(addDays(new Date(), 2), { hours: 10 });
 
 const organiser = new User({
     id: 7,
