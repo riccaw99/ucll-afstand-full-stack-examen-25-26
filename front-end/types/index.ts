@@ -15,6 +15,11 @@ export type ExperienceInput = {
   date: string;
 };
 
+export type credentials = {
+  email: string;
+  password: string;
+};
+
 export type Experience = {
   id?: number;
   name: string;

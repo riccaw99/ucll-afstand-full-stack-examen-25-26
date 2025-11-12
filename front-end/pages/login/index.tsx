@@ -1,15 +1,15 @@
-import Header from '@components/header';
-import UserLoginForm from '@components/users/UserLoginForm';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Head from 'next/head';
+import Header from "@components/header";
+import UserLoginForm from "@components/users/UserLoginForm";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Head from "next/head";
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
   return (
     <>
       <Head>
-        <title>{t('login.title')}</title>
+        <title>{t("login.title")}</title>
       </Head>
       <Header />
       <main>
@@ -26,7 +26,7 @@ export const getServerSideProps = async (context: { locale: any }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 };
