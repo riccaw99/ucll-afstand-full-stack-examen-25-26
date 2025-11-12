@@ -14,46 +14,38 @@ const UserLoginForm: React.FC = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const validateEmail = (emailValue: string) => {
-    if (!emailValue || emailValue.trim() === "") {
-      setEmailError(t("login.validate.emailRequired"));
-    } else {
-      setEmailError(null);
-    }
-  };
-
-  const validatePassword = (passwordValue: string) => {
-    if (!passwordValue || passwordValue.trim() === "") {
-      setPasswordError(t("login.validate.password"));
-    } else {
-      setPasswordError(null);
-    }
-  };
-
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
+  const clearErrors = () => {
     setStatusMessages([]);
-    let isValid = true;
     setEmailError(null);
     setPasswordError(null);
+  };
+  const validate = (): boolean => {
+    let result = true;
 
     if (!email || email.trim() === "") {
       setEmailError(t("login.validate.emailRequired"));
-      isValid = false;
+      result = false;
     }
     if (!password || password.trim() === "") {
       setPasswordError(t("login.validate.password"));
-      isValid = false;
+      result = false;
     }
+    return result;
+  };
 
-    if (!isValid) return;
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    clearErrors();
 
-    const credentials = { email, password };
-    const response = await UserService.loginUser(credentials);
-    const data = await response.json();
+    if (!validate()) return;
 
-    if (response.status === 200) {
+    const payload = { email, password };
+    const res = await UserService.loginUser(payload);
+    const data = await res.json();
+
+    if (res.status === 200) {
       setStatusMessages([{ message: t("login.success"), type: "success" }]);
+
       const user: LoggedInUser = {
         id: data.id,
         token: data.token,
@@ -66,7 +58,7 @@ const UserLoginForm: React.FC = () => {
       setTimeout(() => {
         router.push("/");
       }, 1200);
-    } else if (response.status === 401) {
+    } else if (res.status === 401) {
       const msg = data?.errorMessage ?? t("general.error");
       setStatusMessages([{ message: msg, type: "error" }]);
     } else {
@@ -109,9 +101,7 @@ const UserLoginForm: React.FC = () => {
             type="email"
             value={email}
             onChange={(e) => {
-              const v = e.target.value;
-              setEmail(v);
-              validateEmail(v);
+              setEmail(e.target.value);
             }}
             className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
@@ -130,9 +120,7 @@ const UserLoginForm: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => {
-              const v = e.target.value;
-              setPassword(v);
-              validatePassword(v);
+              setPassword(e.target.value);
             }}
             className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
