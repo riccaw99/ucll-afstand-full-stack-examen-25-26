@@ -33,7 +33,7 @@ const UserLoginForm: React.FC = () => {
     return result;
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     clearErrors();
 

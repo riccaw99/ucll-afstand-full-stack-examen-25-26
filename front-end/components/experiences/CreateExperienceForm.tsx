@@ -18,8 +18,8 @@ const CreateExperienceForm = ({ onSuccess, onCancel }: Props) => {
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
     setError("");
 
     if (!name.trim()) return setError("Name is required.");
