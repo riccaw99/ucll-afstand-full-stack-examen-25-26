@@ -43,7 +43,7 @@ const Trips: React.FC = () => {
         <h1 className="text-2xl font-semibold mb-4">Holiday Trips</h1>
 
         {loading && <p>Loading trips…</p>}
-        {!!error && <div className="text-red-800">{error}</div>}
+        {error && <div className="text-red-800">{error}</div>}
 
         {!loading && !error && (
           <div className="mt-4 w-full max-w-3xl">
