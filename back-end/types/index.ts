@@ -23,14 +23,6 @@ type OrganiserViewInput = {
     isOrganiser: boolean;
 };
 
-type ExperienceInput = {
-    name: string;
-    description: string;
-    date: string;
-    location: string;
-    organiserId: number;
-};
-
 type User = {
     id: number;
     firstName: string;
