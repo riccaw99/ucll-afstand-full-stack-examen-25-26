@@ -38,12 +38,4 @@ type AuthenticationResponse = {
     role: Role;
 };
 
-export {
-    Role,
-    UserInput,
-    AuthenticationResponse,
-    ExperienceInput,
-    EventInput,
-    User,
-    OrganiserViewInput,
-};
+export { Role, UserInput, AuthenticationResponse, EventInput, User, OrganiserViewInput };
